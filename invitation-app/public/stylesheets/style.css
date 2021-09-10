@@ -6,3 +6,13 @@ body {
 a {
   color: #00B7FF;
 }
+.right {
+  width: 300px;
+  margin: auto;
+  float: right;
+}
+.left {
+  width: 300px;
+  margin: auto;
+  float: left;
+}
