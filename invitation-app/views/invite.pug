@@ -1,11 +1,19 @@
 extends layout 
 
 block content 
-    h1 Invite Guest
     div(class="left")
-        h4 Add Name of the Guest
-        input(type="text") 
-        button Invite!
-    div(class="right")
-        h4 Invitation Hash: 
+        h1 Invite Guest
+        br
+        form(method="POST",action="/portal/add")
+            h4 Add Name of the Guest
+            input(type="text",name="guest") 
+            br
+            br
+
+            button(type="submit") Invite!
+            br
+            br
+        h3 #{message}
+        h4 Guest Name:  #{guest_name}
+        h4 Invitation Hash: #{invite_string}
         h4 Validation Link: 
