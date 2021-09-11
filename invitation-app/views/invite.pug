@@ -16,5 +16,4 @@ block content
         h3 #{message}
         h4 Guest Name:  #{guest_name}
         h4 Invitation Hash: #{invite_string}
-        h4 Validation Link:
-        a https://invitationserv.herokuapp.com/#{invite_string}
+        a(href="https://invitationserv.herokuapp.com/#{invite_string}") Validation Link
