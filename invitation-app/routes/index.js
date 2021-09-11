@@ -7,23 +7,41 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/validate/:id',async(req,res)=>{
-  guestModel.findOneAndUpdate(
-    {invitation_string:req.params.id},
-    {$set:
-      {validate_guest: true}
-    },
-    {upsert:true},
-    (err,docs)=>
+  // Can be optimized better
+  var userExists = await guestModel.exists({invitation_string: req.params.id})
+    if(!userExists) 
     {
-      if(err) 
-        console.log(err);
-      else 
-      {
-        console.log("Guest Validated");
-        res.render('thanks',{id: docs.guest_name});
-      }
+      res.send("This User Does Not Exist");
     }
-    )
-})
+    else
+    {
+      guestModel.findOneAndUpdate
+      (
+          {invitation_string:req.params.id},
+          {$set:
+            {validate_guest: true}
+          },
+          {upsert:true},
+          (err,docs)=>
+          {
+            if(err) 
+            {
+              console.log("Error: "+err);
+              res.status(err || 500);
+              res.render('error');
+            }
+            else 
+            {
+              console.log("Guest Validated");
+              res.render('thanks',{id: docs.guest_name});
+            }
+          }
+        )
+    }
+  
+
+  }
+)
+
 
 module.exports = router;
